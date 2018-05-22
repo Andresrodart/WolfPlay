@@ -1,0 +1,16 @@
+extends layout.pug
+
+block midNavBar
+    a(class="brand-logo white-text center" id="user") Welcome #{user}
+
+block content
+    .tenpx
+    .carousel
+        a.carousel-item(href="")
+            img.img_C(src="../images/Logo.svg")
+        a.carousel-item(href="home/snake")
+            img.img_C(src="../images/snake-game.svg")
+        a.carousel-item(href="home/Minesweeper")
+            img.img_C(src="../images/minesweeper-game.svg")    
+block script
+    script(src="../javascripts/home/initHome.js")

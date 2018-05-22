@@ -1,0 +1,13 @@
+extends layout.pug
+
+block midNavBar
+    a(href="#" class="brand-logo center" id="score")
+
+block content
+    div(id= "gameHolder" class= "gameHolder")    
+block script
+    script(src='../javascripts/game/initGame.js')
+    script(src="../javascripts/p5/p5/p5.min.js")
+    script(src="../javascripts/p5/p5/addons/p5.dom.min.js")
+    script(src="../javascripts/" + title + "/" + title + ".js")
+    script(src="../javascripts/" + title + "/" + title + "C.js")
