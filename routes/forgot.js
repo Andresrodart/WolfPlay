@@ -51,8 +51,10 @@ router.post('/', function(req, res, next) {
             };
 
             sgMail.send(mailOptions, false, (err) => {
-                    if(err)
+                    if(err){
                         req.flash('error', 'An e-mail couldn\'t been sent to ' + user.email + ' :C');
+                        done(err, 'done');
+                    }
                     else{
                         req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
                         done(err, 'done');
