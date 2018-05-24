@@ -92,6 +92,9 @@ p {
     top: 10%;
   }
 }
+#index-banner {
+    height:80vh;
+}
 
 @media only screen and (max-width : 600px) {
   #index-banner .section {
