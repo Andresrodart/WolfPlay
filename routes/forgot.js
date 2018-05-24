@@ -8,7 +8,7 @@ var crypto = require('crypto');
 var flash = require('express-flash');
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey(SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.get('/', function(req, res) {
     res.render('forgot', {
