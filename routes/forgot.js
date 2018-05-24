@@ -54,8 +54,12 @@ router.post('/', function(req, res, next) {
             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
         };
         smtpTransport.sendMail(mailOptions, function(err) {
-          req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-          done(err, 'done');
+            if(err){
+                req.flash('error', 'An e-mail couldn\'t been sent to ' + user.email + ' :C');
+            }else{
+                req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                done(err, 'done');
+            }
         });
       }
     ], function(err) {
