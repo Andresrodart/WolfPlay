@@ -38,10 +38,10 @@ router.post('/', function(req, res, next) {
       },
       function(token, user, done) {
         var smtpTransport = nodemailer.createTransport({
-          service: '',
+          service: process.env.MAIL_SRVS,
           auth: {
-            user: '',
-            pass: ''
+            user: process.env.MAIL_SRVS_USER,
+            pass: process.env.MAIL_PASS
           }
         });
         var mailOptions = {
