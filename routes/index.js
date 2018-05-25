@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'WolfPlay' });
+    res.render('index', { title: 'WolfPlay', index: 'true' });
     //res.sendFile(path.join(__dirname, '../public/html/index.html'));
 });/**/
 

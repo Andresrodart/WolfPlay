@@ -1,48 +1,20 @@
-doctype html
-head
-  meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1')
-  title WofPlay
-  // CSS
-  link(href='../stylesheets/materialize.css' type='text/css' rel='stylesheet' media='screen,projection')
-  link(href='../stylesheets/style.css' type='text/css' rel='stylesheet' media='screen,projection')
-nav.NavBarWP(role='navigation')
-  .nav-wrapper.container
-    a#logo-container.brand-logo.white-text(href='#')
-      img(src='../images/LogoS.png')
-    ul.right.hide-on-med-and-down
-      li
-        a.white-text(href='./login') Iniciar Sesi&oacute;n
-    //
-      ul id="nav-mobile" class="side-nav">
-      <li><a href="#">Navbar Link</a></li>
-      </ul
-#index-banner.parallax-container
-  .section.no-pad-bot
-    #WelcomeDiv.container
-      br
-      br
-      h1.header.center.SecundaryText.text-lighten-2.TitleWP WofPlay
-      .row.center
-        h5.header.col.s12.light Juega - Compite - Disfruta
-      .row.center
-        a#register-button.btn-large.waves-effect.waves-light.NavBarWP.dark-1(href='/register') Registrate
-      br
-      br
-  #particles.parallax
-    // img src="background1.jpg" alt="Unsplashed background img 1"
-footer.page-footer
-  .container
-    .row
-      .col.16.s12
-        h5.white-text 
-        p.grey-text.text-lighten-4 
-  .footer-copyright
-    .container
-      | Made by 
-      a.brown-text.text-lighten-3(href='') Andrés Rodart
-// Scripts
-script(type='text/javascript' src='../javascripts/jquery-3.3.1.min.js')
-script(type='text/javascript' src='../javascripts/jquery.particleground.min.js')
-script(src='../javascripts/materialize.js')
-script(src='../javascripts/init.js')
+extends layout.pug
+
+block midNavBar
+    a(class="brand-logo white-text center" id="user")
+
+block content
+    .section.no-pad-bot
+        #WelcomeDiv.container
+            br
+            br
+            h1.header.center.SecundaryText.text-lighten-2.TitleWP WofPlay
+            .row.center
+                h5.header.col.s12.light Juega - Compite - Disfruta
+            .row.center
+                a#register-button.btn-large.waves-effect.waves-light.NavBarWP.dark-1(href='/register') Registrate
+            br
+            br
+    #particles.parallax
+block script
+    script(type='text/javascript' src='../javascripts/jquery.particleground.min.js')
