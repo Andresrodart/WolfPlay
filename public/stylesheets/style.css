@@ -109,9 +109,14 @@ p {
   font-size: inherit;
 }
 
-footer.page-footer {
+footer.page-footer{
   margin: 0;
   background-color: #000a12;
+}
+
+.dark{
+    margin: 0;
+    background-color: #000a12;
 }
 
 .PrimaryText{

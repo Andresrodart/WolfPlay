@@ -4,9 +4,11 @@ html(lang='en')
         title= title     
         meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1")
+        //CSS
         link(href="../stylesheets/materialize.css" type="text/css" rel="stylesheet" media="screen,projection")
         link(href='../stylesheets/style.css', rel='stylesheet')
-        link(href='../stylesheets/responsive.css', rel='stylesheet')
+        if !index    
+            link(href='../stylesheets/responsive.css', rel='stylesheet')
 
     body
         nav(class= 'NavBarWP' role="navigation")
@@ -24,30 +26,37 @@ html(lang='en')
                             a(href="" data-target="slide-out" class="sidenav-trigger white-text show-on-large button-collapse") perfil
                         if index
                             a.white-text(href='./login') Iniciar Sesi&oacute;n
+        if !index              
+            ul(id="slide-out" class="sidenav")
+                li
+                    div(class="user-view")
+                        div(class="background")
+                            img(src="../images/SapceBG.png")
+                        a(href="#user")
+                            img(class="circle" src="../images/LogoS.png")
+                        a(href="#name")
+                            span(class="white-text name")=user
+                        a(href="#email")
+                            span(class="white-text email")=mail
+                li
+                    a(href="home/logout") LogOut
+                li
+                    div(class="divider")
+                li
+                    a(class="subheader") Subheader
+                li
+                    a(class="waves-effect" href="#!") Third Link With Waves
+
+            div(id="index-banner" class="parallax-container content")
+                block content
+
+        if index  
+            div(id="index-banner" class="parallax-container")
+                block content
         
-        ul(id="slide-out" class="sidenav")
-            li
-                div(class="user-view")
-                    div(class="background")
-                        img(src="../images/SapceBG.png")
-                    a(href="#user")
-                        img(class="circle" src="../images/LogoS.png")
-                    a(href="#name")
-                        span(class="white-text name")=user
-                    a(href="#email")
-                        span(class="white-text email")=mail
-            li
-                a(href="home/logout") LogOut
-            li
-                div(class="divider")
-            li
-                a(class="subheader") Subheader
-            li
-                a(class="waves-effect" href="#!") Third Link With Waves
-        
-        div(id="index-banner" class="parallax-container content")
-            block content
-        
+        block postBanner
+
+
         footer(class="page-footer")
             div(class="container")
                 div(class="row")
@@ -64,8 +73,10 @@ html(lang='en')
                     a.brown-text.text-lighten-3(href='') Andres Rodart
 
         block scriptPre
+        
         script(src='../javascripts/jquery-3.3.1.min.js')
         script(src='../javascripts/materialize.js')
-        script(src='../javascripts/home/sideNav.js')
-        script(src='../javascripts/jquery.validate.min.js')
+        if !index      
+            script(src='../javascripts/home/sideNav.js')
+            script(src='../javascripts/jquery.validate.min.js')
         block script
