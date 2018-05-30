@@ -4,7 +4,19 @@ block midNavBar
     a(href="#" class="brand-logo center" id="score")
 
 block content
-    div(id= "gameHolder" class= "gameHolder")    
+    div(id= "gameHolder" class= "gameHolder")
+    .tap-target(data-target='control').grey.darken-3
+        .tap-target-content
+            h5 Controlls
+            if title=='snake'   
+                p Use A, S, D, W To move the charcater
+            else if title=='minesweeper'
+                p Select with the mouse a cell to reveal it.
+    
+    #control.fixed-action-btn(onclick="$('.tap-target').tapTarget('open')")
+        a.btn-floating.btn-large.grey.darken-3
+            i.large.material-icons videogame_asset
+    
 block script
     script(src='../javascripts/game/initGame.js')
     script(src="../javascripts/p5/p5/p5.min.js")

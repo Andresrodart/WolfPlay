@@ -22,7 +22,7 @@ var app = express();
 
 //Set up mongoose connection
 
-var mongoDB =process.env.MONGODB_URI || 'mongodb://root:root@ds119650.mlab.com:19650/wolfplay';
+var mongoDB =process.env.MONGODB_URI;
 
 mongoose.connect(mongoDB).then(
     () => {  console.log("Conectado a BD web") },

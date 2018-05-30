@@ -16,7 +16,6 @@ router.get('/', function(req, res, next) {
 router.get('/:game', function(req, res, next) {
     if (req.params.game == 'logout') {
         // delete session object
-        console.log("LogOut")
         req.session.destroy(function(err) {
           if(err) {
             return next(err);
@@ -28,7 +27,7 @@ router.get('/:game', function(req, res, next) {
     if (!req.session.userId) {
         res.redirect('/');
     }else{
-        res.render('game',{title: req.params.game, user: req.session.user});//
+        res.render('game',{title: req.params.game, user: req.session.user, mail: req.session.mail});//
     }
 });
 

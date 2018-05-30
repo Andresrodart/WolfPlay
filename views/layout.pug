@@ -5,6 +5,7 @@ html(lang='en')
         meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1")
         //CSS
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
         link(href="../stylesheets/materialize.css" type="text/css" rel="stylesheet" media="screen,projection")
         link(href='../stylesheets/style.css', rel='stylesheet')
         if !index    
@@ -23,7 +24,8 @@ html(lang='en')
                 ul(class="right hide-on-med-and-down")
                     li
                         if user
-                            a(href="" data-target="slide-out" class="sidenav-trigger white-text show-on-large button-collapse") perfil
+                            a(href="" data-target="slide-out" class="sidenav-trigger white-text show-on-large button-collapse")
+                                i.large.material-icons account_box
                         if index
                             a.white-text(href='./login') Iniciar Sesi&oacute;n
         if !index              
