@@ -245,3 +245,6 @@ html, body {
     color:#757575 !important;
 }
 
+.smallybanner{
+    min-height: 500px !important;
+}
