@@ -2,7 +2,7 @@
 // http://codingtra.in
 // http://patreon.com/codingtrain
 // Code for: https://youtu.be/cXgA1d_E-jY
-
+//
 class Bird {
     constructor() {
       this.y = height / 2;
