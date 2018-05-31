@@ -5,16 +5,16 @@
 //
 class Bird {
     constructor() {
-      this.y = height / 2;
-      this.x = 64;
-  
-      this.gravity = 0.6;
-      this.lift = -10;
-      this.velocity = 0;
-  
-      this.icon = birdSprite;
-      this.width = 30;
-      this.height = 27;
+        this.y = height / 2;
+        this.x = 64;
+    
+        this.gravity = 0.6;
+        this.lift = -10;
+        this.velocity = 0;
+    
+        this.icon = birdSprite;
+        this.width = 30;
+        this.height = 27;
     }
   
     show() {
