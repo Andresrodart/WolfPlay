@@ -9,7 +9,7 @@ var Time;
 var score ='00:00';
 
 function setup() {
-    canvas = createCanvas(401, 401);
+    canvas = createCanvas(501, 501);
     canvas.parent('gameHolder');
     cols = floor(width / w);
     rows = floor(height / w);

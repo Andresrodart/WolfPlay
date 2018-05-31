@@ -1,206 +1,114 @@
-class FlappyBird {
+// Code from Daniel Shiffman
+// http://codingtra.in
+// http://patreon.com/codingtrain
+// Code for: https://youtu.be/cXgA1d_E-jY
 
+class Bird {
     constructor() {
-        keyboard = Keyboard.getInstance();
-        theChose = 0;
-        this.PIPE_DELAY = 100;
-        this.paused;
-        this.pauseDelay;
-        this.restartDelay;
-        this.pipeDelay;
-        this.characterDelay;
-        this.scoreDelay;
-        this.userDelay;
-        this.bird;
-        this.pipes;
-        this.score;
-        this.gameover;
-        this.started;
-        this.score_;
-        this.setUser;
-        this.theChose = 0;
-        restart();
+      this.y = height / 2;
+      this.x = 64;
+  
+      this.gravity = 0.6;
+      this.lift = -10;
+      this.velocity = 0;
+  
+      this.icon = birdSprite;
+      this.width = 30;
+      this.height = 27;
     }
-
-    restart() {
-        paused = false;
-        started = false;
-        gameover = false;
-        score_ = false;
-        setUser = false;
-        
-        score = 0;
-        pauseDelay = 0;
-        restartDelay = 0;
-        pipeDelay = 0;
-        characterDelay = 0;
-        userDelay = 0;
-        bird = new Bird(theChose);
+  
+    show() {
+      // draw the icon CENTERED around the X and Y coords of the bird object
+      image(this.icon, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
     }
-
+  
+    up() {
+      this.velocity = this.lift;
+    }
+  
     update() {
-        watchForStart();
-        if (!started){
-            watchForCharacter();
-            watchScore();
-            watchForUser();
-            return;
-        }
-
-        watchForPause();
-        watchForReset();
-
-        if (paused)
-            return;
-
-        bird.update();
-
-        if (gameover)
-            return;
-
-        movePipes();
-        checkForCollisions();
-    }
-
-    getRenders() {
-        var renders;
-        renders.add(new Pipe());
-        pipes.forEach(element => {
-            renders.add(element.getRender());
-        });
-        renders.add(new Render(0, 0, "lib/foreground.png"));
-        renders.add(bird.getRender());
-        return renders;
-    }
-
-    this.void watchForStart() {
-        if (!started && keyboard.isDown(KeyEvent.VK_SPACE)) {
-            started = true;
-        }
-    }
-
-    this.void watchForPause() {
-        if (pauseDelay > 0)
-            pauseDelay--;
-
-        if (keyboard.isDown(KeyEvent.VK_P) && pauseDelay <= 0) {
-            paused = !paused;
-            pauseDelay = 10;
-        }
-    }
-
-    this.void watchForReset() {
-        if (restartDelay > 0)
-            restartDelay--;
-
-        if (keyboard.isDown(KeyEvent.VK_R) && restartDelay <= 0) {
-            restart();
-            setUser = false;
-            restartDelay = 10;
-            return;
-        }
-    }
-
-    this.void movePipes() {
-        pipeDelay--;
-
-        if (pipeDelay < 0) {
-            pipeDelay = PIPE_DELAY;
-            Pipe northPipe = null;
-            Pipe southPipe = null;
-
-            // Look for pipes off the screen
-            for (Pipe pipe : pipes) {
-                if (pipe.x - pipe.width < 0) {
-                    if (northPipe == null) {
-                        northPipe = pipe;
-                    } else if (southPipe == null) {
-                        southPipe = pipe;
-                        break;
-                    }
-                }
-            }
-
-            if (northPipe == null) {
-                Pipe pipe = new Pipe("north");
-                pipes.add(pipe);
-                northPipe = pipe;
-            } else {
-                northPipe.reset();
-            }
-
-            if (southPipe == null) {
-                Pipe pipe = new Pipe("south");
-                pipes.add(pipe);
-                southPipe = pipe;
-            } else {
-                southPipe.reset();
-            }
-
-            northPipe.y = southPipe.y + southPipe.height + 175;
-        }
-
-        for (Pipe pipe : pipes) {
-            pipe.update();
-        }
-    }
-
-    this.void checkForCollisions() {
-
-        for (Pipe pipe : pipes) {
-            if (pipe.collides(bird.x, bird.y, bird.width, bird.height)) {
-                gameover = true;
-                bird.dead = true;
-            } else if (pipe.x == bird.x && pipe.orientation.equalsIgnoreCase("south")) {
-                score++;
-            }
-        }
-
-        // Ground + Bird collision
-        if (bird.y + bird.height > App.HEIGHT - 80) {
-            gameover = true;
-            bird.y = App.HEIGHT - 80 - bird.height;
-        }
-    }
-
-    this.void watchForCharacter() {
-        if (keyboard.isDown(KeyEvent.VK_RIGHT) && characterDelay <=0) {
-            theChose++;
-            theChose = theChose == (bird.getCharacterlenght())? 0:theChose;
-            restart();
-            characterDelay = 15;
-            setUser=false;
-        }else if(keyboard.isDown(KeyEvent.VK_LEFT) && characterDelay <=0){
-            theChose--;
-            theChose = theChose < 0? (bird.getCharacterlenght()-1) :theChose;
-            restart();
-            setUser=false;
-            characterDelay = 15;
-        } else if (characterDelay > 0)
-            characterDelay--;
-    }
-
-    this.void watchScore() {
-        if (keyboard.isDown(KeyEvent.VK_S) && scoreDelay <=0) {
-            score_ = !score_;
-            scoreDelay = 15;
-        }else if (scoreDelay > 0)
-            scoreDelay--;
-        
-    }
-
-    this.void watchForUser() {
-        if (keyboard.isDown(KeyEvent.VK_U) && userDelay ==0) {
-            setUser = true;
-            userDelay = 15;
-        }else if (userDelay > 0){
-            userDelay--;
-            setUser = false;
-        }
-        
-    }
-    
-    public void setUserSta(boolean b){
-        setUser = b;
+      this.velocity += this.gravity;
+      this.y += this.velocity;
+  
+      if (this.y >= height - this.height / 2) {
+        this.y = height - this.height / 2;
+        this.velocity = 0;
+      }
+  
+      if (this.y <= this.height / 2) {
+        this.y = this.height / 2;
+        this.velocity = 0;
+      }
     }
 }
+
+class Pipe {
+    constructor() {
+      this.spacing = 130;
+      this.top = random(height / 6, 3 / 4 * height);
+      this.bottom = this.top + this.spacing;
+  
+      this.x = width;
+      this.w = 80;
+      this.speed = 3;
+  
+      this.passed = false;
+      this.highlight = false;
+    }
+  
+    hits(bird) {
+      let halfBirdHeight = bird.height / 2;
+      let halfBirdwidth = bird.width / 2;
+      if (bird.y - halfBirdHeight < this.top || bird.y + halfBirdHeight > this.bottom) {
+        //if this.w is huge, then we need different collision model
+        if (bird.x + halfBirdwidth > this.x && bird.x - halfBirdwidth < this.x + this.w) {
+          this.highlight = true;
+          this.passed = true;
+          return true;
+        }
+      }
+      this.highlight = false;
+      return false;
+    }
+  
+    //this function is used to calculate scores and checks if we've went through the pipes
+    pass(bird) {
+      if (bird.x > this.x && !this.passed) {
+        this.passed = true;
+        return true;
+      }
+      return false;
+    }
+  
+    drawHalf() {
+      let howManyNedeed = 0;
+      let peakRatio = pipePeakSprite.height / pipePeakSprite.width;
+      let bodyRatio = pipeBodySprite.height / pipeBodySprite.width;
+      //this way we calculate, how many tubes we can fit without stretching
+      howManyNedeed = Math.round(height / (this.w * bodyRatio));
+      //this <= and start from 1 is just my HACK xD But it's working
+      for (let i = 0; i < howManyNedeed; ++i) {
+        let offset = this.w * (i * bodyRatio + peakRatio);
+        image(pipeBodySprite, -this.w / 2, offset, this.w, this.w * bodyRatio);
+      }
+      image(pipePeakSprite, -this.w / 2, 0, this.w, this.w * peakRatio);
+    }
+  
+    show() {
+      push();
+      translate(this.x + this.w / 2, this.bottom);
+      this.drawHalf();
+      translate(0, -this.spacing);
+      rotate(PI);
+      this.drawHalf();
+      pop();
+    }
+  
+    update() {
+      this.x -= this.speed;
+    }
+  
+    offscreen() {
+      return (this.x < -this.w);
+    }
+  }
