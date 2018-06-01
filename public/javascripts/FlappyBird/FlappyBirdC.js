@@ -1,3 +1,4 @@
+
 class Bird {
     constructor() {
         this.y = height / 2;
@@ -14,7 +15,7 @@ class Bird {
   
     show() {
       // draw the icon CENTERED around the X and Y coords of the bird object
-      image(this.icon, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
+      //image(this.icon, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
     }
   
     up() {
@@ -90,13 +91,13 @@ class Pipe {
     }
   
     show() {
-      push();
-      translate(this.x + this.w / 2, this.bottom);
+      //push();
+      //translate(this.x + this.w / 2, this.bottom);
       this.drawHalf();
-      translate(0, -this.spacing);
-      rotate(PI);
+      //translate(0, -this.spacing);
+      //rotate(PI);
       this.drawHalf();
-      pop();
+      //pop();
     }
   
     update() {
