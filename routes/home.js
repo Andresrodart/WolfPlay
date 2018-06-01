@@ -36,6 +36,7 @@ router.post('/A_F', function(req, res, next){
         let auxNum = new Complex(parser.eval(`f(${index})`));
         matrix.push({abs: auxNum.abs(), ang: auxNum.arg()});
     }
+    matrix.push(exp);
     matrix[10] = {abs: c0.abs(), ang: c0.arg()};
     return res.send(matrix);
     //res.render('A_F',{title: 'WolfPlay', user: req.session.user, mail: req.session.mail, respons:true});

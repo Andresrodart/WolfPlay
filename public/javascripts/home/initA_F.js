@@ -28,12 +28,12 @@
                     y: yValues_ang,
                     type: 'scatter'
                 };
-
-                var data = [trace1];
+                console.log(data[data.length - 1]);
+                var data_abs = [trace1];
                 var data_ang = [trace2];
-                Plotly.newPlot('plotAbs', data);
+                Plotly.newPlot('plotAbs', data_abs);
                 Plotly.newPlot('plotAng', data_ang);
-
+                document.getElementById('ec').innerHTML = "` " + data[data.length - 1] + " `";
                 var elements = document.querySelectorAll('.tit');
                 elements = elements.length ? elements : [elements];
                 for (var index = 0; index < elements.length; index++) {

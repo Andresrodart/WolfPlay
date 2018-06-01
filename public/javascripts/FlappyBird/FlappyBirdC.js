@@ -1,206 +1,136 @@
-class FlappyBird {
+var bird;
+var pipes;
+var parallax = 0.8;
+var score = 0;
+var maxScore = 0;
+var birdSprite;
+var pipeBodySprite;
+var pipePeakSprite;
+var bgImg;
+var bgX;
+var gameoverFrame = 0;
+var isOver = false;
 
-    constructor() {
-        keyboard = Keyboard.getInstance();
-        theChose = 0;
-        this.PIPE_DELAY = 100;
-        this.paused;
-        this.pauseDelay;
-        this.restartDelay;
-        this.pipeDelay;
-        this.characterDelay;
-        this.scoreDelay;
-        this.userDelay;
-        this.bird;
-        this.pipes;
-        this.score;
-        this.gameover;
-        this.started;
-        this.score_;
-        this.setUser;
-        this.theChose = 0;
-        restart();
-    }
+var touched = false;
+var prevTouched = touched;
 
-    restart() {
-        paused = false;
-        started = false;
-        gameover = false;
-        score_ = false;
-        setUser = false;
-        
-        score = 0;
-        pauseDelay = 0;
-        restartDelay = 0;
-        pipeDelay = 0;
-        characterDelay = 0;
-        userDelay = 0;
-        bird = new Bird(theChose);
-    }
 
-    update() {
-        watchForStart();
-        if (!started){
-            watchForCharacter();
-            watchScore();
-            watchForUser();
-            return;
-        }
+function preload() {
 
-        watchForPause();
-        watchForReset();
-
-        if (paused)
-            return;
-
-        bird.update();
-
-        if (gameover)
-            return;
-
-        movePipes();
-        checkForCollisions();
-    }
-
-    getRenders() {
-        var renders;
-        renders.add(new Pipe());
-        pipes.forEach(element => {
-            renders.add(element.getRender());
-        });
-        renders.add(new Render(0, 0, "lib/foreground.png"));
-        renders.add(bird.getRender());
-        return renders;
-    }
-
-    this.void watchForStart() {
-        if (!started && keyboard.isDown(KeyEvent.VK_SPACE)) {
-            started = true;
-        }
-    }
-
-    this.void watchForPause() {
-        if (pauseDelay > 0)
-            pauseDelay--;
-
-        if (keyboard.isDown(KeyEvent.VK_P) && pauseDelay <= 0) {
-            paused = !paused;
-            pauseDelay = 10;
-        }
-    }
-
-    this.void watchForReset() {
-        if (restartDelay > 0)
-            restartDelay--;
-
-        if (keyboard.isDown(KeyEvent.VK_R) && restartDelay <= 0) {
-            restart();
-            setUser = false;
-            restartDelay = 10;
-            return;
-        }
-    }
-
-    this.void movePipes() {
-        pipeDelay--;
-
-        if (pipeDelay < 0) {
-            pipeDelay = PIPE_DELAY;
-            Pipe northPipe = null;
-            Pipe southPipe = null;
-
-            // Look for pipes off the screen
-            for (Pipe pipe : pipes) {
-                if (pipe.x - pipe.width < 0) {
-                    if (northPipe == null) {
-                        northPipe = pipe;
-                    } else if (southPipe == null) {
-                        southPipe = pipe;
-                        break;
-                    }
-                }
-            }
-
-            if (northPipe == null) {
-                Pipe pipe = new Pipe("north");
-                pipes.add(pipe);
-                northPipe = pipe;
-            } else {
-                northPipe.reset();
-            }
-
-            if (southPipe == null) {
-                Pipe pipe = new Pipe("south");
-                pipes.add(pipe);
-                southPipe = pipe;
-            } else {
-                southPipe.reset();
-            }
-
-            northPipe.y = southPipe.y + southPipe.height + 175;
-        }
-
-        for (Pipe pipe : pipes) {
-            pipe.update();
-        }
-    }
-
-    this.void checkForCollisions() {
-
-        for (Pipe pipe : pipes) {
-            if (pipe.collides(bird.x, bird.y, bird.width, bird.height)) {
-                gameover = true;
-                bird.dead = true;
-            } else if (pipe.x == bird.x && pipe.orientation.equalsIgnoreCase("south")) {
-                score++;
-            }
-        }
-
-        // Ground + Bird collision
-        if (bird.y + bird.height > App.HEIGHT - 80) {
-            gameover = true;
-            bird.y = App.HEIGHT - 80 - bird.height;
-        }
-    }
-
-    this.void watchForCharacter() {
-        if (keyboard.isDown(KeyEvent.VK_RIGHT) && characterDelay <=0) {
-            theChose++;
-            theChose = theChose == (bird.getCharacterlenght())? 0:theChose;
-            restart();
-            characterDelay = 15;
-            setUser=false;
-        }else if(keyboard.isDown(KeyEvent.VK_LEFT) && characterDelay <=0){
-            theChose--;
-            theChose = theChose < 0? (bird.getCharacterlenght()-1) :theChose;
-            restart();
-            setUser=false;
-            characterDelay = 15;
-        } else if (characterDelay > 0)
-            characterDelay--;
-    }
-
-    this.void watchScore() {
-        if (keyboard.isDown(KeyEvent.VK_S) && scoreDelay <=0) {
-            score_ = !score_;
-            scoreDelay = 15;
-        }else if (scoreDelay > 0)
-            scoreDelay--;
-        
-    }
-
-    this.void watchForUser() {
-        if (keyboard.isDown(KeyEvent.VK_U) && userDelay ==0) {
-            setUser = true;
-            userDelay = 15;
-        }else if (userDelay > 0){
-            userDelay--;
-            setUser = false;
-        }
-        
-    }
-    
-    public void setUserSta(boolean b){
-        setUser = b;
-    }
+  pipeBodySprite = loadImage('../images/pipe_body.png');
+  pipePeakSprite = loadImage('../images/pipe-north.png');
+  birdSprite = loadImage('../images/bird.png');
+  bgImg = loadImage('../images/background.png');
 }
+
+function setup() {
+    window.addEventListener("keydown", function(e) {
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+    canvas = createCanvas(500, 500);
+    canvas.parent('gameHolder');
+    reset();
+}
+
+function draw() {
+  background(0);
+  // Draw our background image, then move it at the same speed as the pipes
+  image(bgImg, bgX, 0, bgImg.width, height);
+  bgX -= pipes[0].speed * parallax;
+
+  // this handles the "infinite loop" by checking if the right
+  // edge of the image would be on the screen, if it is draw a
+  // second copy of the image right next to it
+  // once the second image gets to the 0 point, we can reset bgX to
+  // 0 and go back to drawing just one image.
+  if (bgX <= -bgImg.width + width) {
+    image(bgImg, bgX + bgImg.width, 0, bgImg.width, height);
+    if (bgX <= -bgImg.width) {
+      bgX = 0;
+    }
+  }
+
+  for (var i = pipes.length - 1; i >= 0; i--) {
+    pipes[i].update();
+    pipes[i].show();
+
+    if (pipes[i].pass(bird)) {
+      score++;
+    }
+
+    if (pipes[i].hits(bird)) {
+      gameover();
+    }
+
+    if (pipes[i].offscreen()) {
+      pipes.splice(i, 1);
+    }
+  }
+
+  bird.update();
+  bird.show();
+
+  if ((frameCount - gameoverFrame) % 150 == 0) {
+    pipes.push(new Pipe());
+  }
+
+  showScores();
+
+  // touches is an list that contains the positions of all
+  // current touch points positions and IDs
+  // here we check if touches' length is bigger than one
+  // and set it to the touched var
+  touched = (touches.length > 0);
+
+  // if user has touched then make bird jump
+  // also checks if not touched before
+  if (touched && !prevTouched) {
+    bird.up();
+  }
+
+  // updates prevTouched
+  prevTouched = touched;
+
+
+}
+
+function showScores() {
+  //textSize(32);
+  //text('score: ' + score, 1, 32);
+  //text('record: ' + maxScore, 1, 64);
+  document.getElementById("score").innerHTML = score;
+}
+
+function gameover() {
+  textSize(64);
+  textAlign(CENTER, CENTER);
+  text('GAMEOVER', width / 2, height / 2);
+  textAlign(LEFT, BASELINE);
+  maxScore = max(score, maxScore);
+  isOver = true;
+  noLoop();
+}
+
+function reset() {
+  isOver = false;
+  score = 0;
+  bgX = 0;
+  pipes = [];
+  bird = new Bird();
+  pipes.push(new Pipe());
+  gameoverFrame = frameCount - 1;
+  loop();
+}
+
+function keyPressed() {
+  if (key === ' ') {
+    bird.up();
+   if (isOver) reset(); //you can just call reset() in Machinelearning if you die, because you cant simulate keyPress with code.
+  }
+}
+function touchStarted() {
+  if (isOver) reset();
+} 

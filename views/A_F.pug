@@ -1,4 +1,6 @@
 extends layout.pug
+block head
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=AM_CHTML")
 
 block content
     
@@ -21,6 +23,10 @@ block content
                             center
                                 .row
                                     button.col.s12.btn.btn-large.waves-effect.waves-light.grey.darken-4(type="submit" name="btn_login") Send
+    .Formu
+        h2.ec#ec
+            |`x = (-b +- sqrt(b^2-4ac))/(2a) .`
+            
     .container.tit(style="visibility: hidden;")
         h2 Gráfica de amplitud
     .plotAbs#plotAbs
