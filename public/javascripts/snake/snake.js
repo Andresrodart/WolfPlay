@@ -1,8 +1,27 @@
-//Snake
-var s;
+var bird;
+var pipes;
+var parallax = 0.8;
 var score = 0;
-var CanWeMove = true;
-var gameStarted = false;
+var maxScore = 0;
+var birdSprite;
+var pipeBodySprite;
+var pipePeakSprite;
+var bgImg;
+var bgX;
+var gameoverFrame = 0;
+var isOver = false;
+
+var touched = false;
+var prevTouched = touched;
+
+
+function preload() {
+
+  pipeBodySprite = loadImage('../images/pipe_body.png');
+  pipePeakSprite = loadImage('../images/pipe-north.png');
+  birdSprite = loadImage('../images/bird.png');
+  bgImg = loadImage('../images/background.png');
+}
 
 function setup() {
     window.addEventListener("keydown", function(e) {
@@ -11,40 +30,108 @@ function setup() {
             e.preventDefault();
         }
     }, false);
-    let wid = hei = 476;
-	canvas = createCanvas(wid, hei);
+    canvas = createCanvas(500, 500);
     canvas.parent('gameHolder');
-	s = new Snake(wid, hei);
-    frameRate(10);
-    if(gameStarted) $( '#gameHolder' ).trigger( "gameEnd", [ {score: score} ] );
-    gameStarted = true;
+    reset();
 }
-/*function mousePressed() {
-	s.createFood(floor(random(s.col)), floor(random(s.row)));
-	s.tail[++s.nTail -1] = createVector(10, 10);
-}*/
+
 function draw() {
-	background(51);
-	s.logic();
-	s.update();
-	s.show();
-    CanWeMove = true;
-    score =  s.nTail * 100;
-    document.getElementById("score").innerHTML = "Score: " + score;
-}
-function keyPressed(){
-	if(CanWeMove === true){
-		if((keyCode === UP_ARROW || keyCode === 87) && s.yspeed != s.scl)
-			s.input(0, -s.scl);
-		else if((keyCode === DOWN_ARROW || keyCode === 83) && s.yspeed != -s.scl)
-			s.input(0, s.scl);
-		else if((keyCode === RIGHT_ARROW || keyCode === 68) && s.xspeed != -s.scl)
-			s.input(s.scl, 0);
-		if((keyCode === LEFT_ARROW || keyCode === 65) && s.xspeed != s.scl)
-			s.input(-s.scl, 0);
-		
-		CanWeMove = false;
-	}
-}
+  background(0);
+  // Draw our background image, then move it at the same speed as the pipes
+  image(bgImg, bgX, 0, bgImg.width, height);
+  bgX -= pipes[0].speed * parallax;
+
+  // this handles the "infinite loop" by checking if the right
+  // edge of the image would be on the screen, if it is draw a
+  // second copy of the image right next to it
+  // once the second image gets to the 0 point, we can reset bgX to
+  // 0 and go back to drawing just one image.
+  if (bgX <= -bgImg.width + width) {
+    image(bgImg, bgX + bgImg.width, 0, bgImg.width, height);
+    if (bgX <= -bgImg.width) {
+      bgX = 0;
+    }
+  }
+
+  for (var i = pipes.length - 1; i >= 0; i--) {
+    pipes[i].update();
+    pipes[i].show();
+
+    if (pipes[i].pass(bird)) {
+      score++;
+    }
+
+    if (pipes[i].hits(bird)) {
+      gameover();
+    }
+
+    if (pipes[i].offscreen()) {
+      pipes.splice(i, 1);
+    }
+  }
+
+  bird.update();
+  bird.show();
+
+  if ((frameCount - gameoverFrame) % 150 == 0) {
+    pipes.push(new Pipe());
+  }
+
+  showScores();
+
+  // touches is an list that contains the positions of all
+  // current touch points positions and IDs
+  // here we check if touches' length is bigger than one
+  // and set it to the touched var
+  touched = (touches.length > 0);
+
+  // if user has touched then make bird jump
+  // also checks if not touched before
+  if (touched && !prevTouched) {
+    bird.up();
+  }
+
+  // updates prevTouched
+  prevTouched = touched;
 
 
+}
+
+function showScores() {
+  //textSize(32);
+  //text('score: ' + score, 1, 32);
+  //text('record: ' + maxScore, 1, 64);
+  document.getElementById("score").innerHTML = score;
+}
+
+function gameover() {
+  textSize(64);
+  textAlign(CENTER, CENTER);
+  text('GAMEOVER', width / 2, height / 2);
+  textAlign(LEFT, BASELINE);
+  maxScore = max(score, maxScore);
+  isOver = true;
+  noLoop();
+}
+
+function reset() {
+  isOver = false;
+  score = 0;
+  bgX = 0;
+  pipes = [];
+  bird = new Bird();
+  pipes.push(new Pipe());
+  gameoverFrame = frameCount - 1;
+  loop();
+}
+
+function keyPressed() {
+  if (key === ' ') {
+    bird.up();
+    if (isOver) reset(); //you can just call reset() in Machinelearning if you die, because you cant simulate keyPress with code.
+  }
+}
+
+function touchStarted() {
+  if (isOver) reset();
+}

@@ -1,70 +1,114 @@
-class Snake{
-    constructor(width, height){
-        this.scl = 14;
-        this.width = width;
-        this.height = height;
-        this.col = floor(this.width / this.scl);
-	    this.row = floor(this.height / this.scl);
-	    this.xspeed = 0;
-        this.yspeed = 0;
-        this.nTail = 0;
-        this.tail = [];
-        this.head = createVector(floor(this.col/2), floor(this.row/2));
-        this.head.mult(this.scl);
-        this.food = this.createFood();
+// Code from Daniel Shiffman
+// http://codingtra.in
+// http://patreon.com/codingtrain
+// Code for: https://youtu.be/cXgA1d_E-jY
+
+class Bird {
+    constructor() {
+      this.y = height / 2;
+      this.x = 64;
+  
+      this.gravity = 0.6;
+      this.lift = -10;
+      this.velocity = 0;
+  
+      this.icon = birdSprite;
+      this.width = 30;
+      this.height = 27;
     }
-
-    update(){
-		for (let i = this.tail.length - 1; i > 0; i--)
-			this.tail[i].set(this.tail[i - 1].x, this.tail[i - 1].y);
-		if(this.tail[0])
-			this.tail[0].set(this.head.x, this.head.y);
-		this.head.set(this.head.x + this.xspeed, this.head.y + this.yspeed);
-		//this.head.x = constrain(this.head.x, 0, width-scl);
-		//this.head.y = constrain(this.head.y, 0, height-scl);
-		if (this.head.x >= this.width) this.head.x = 0; else if (this.head.x < 0) this.head.x = this.width - this.scl;
-	    else if (this.head.y >= this.height) this.head.y = 0; else if (this.head.y < 0) this.head.y = this.height - this.scl;
-	}
-
-	show(){
-		fill(255);
-		for (var i = 0; i < this.tail.length; i++)
-			rect(this.tail[i].x, this.tail[i].y, this.scl, this.scl);
-		rect(this.head.x, this.head.y, this.scl, this.scl);
-		fill(255, 0, 100);
-		rect(this.food.x, this.food.y, this.scl, this.scl);
-	}
-
-	input(x ,y){
-		this.xspeed = x;
-		this.yspeed = y;
-	}
-
-	logic(){
-		if (dist(this.head.x, this.head.y, this.food.x, this.food.y) <= 2){
-			this.createFood(this.col, this.row);
-			this.tail[++this.nTail -1] = createVector(10, 10);
-		}
-		for (var i = 0; i < this.tail.length; i++)
-			if(this.tail[i].x == this.head.x && this.tail[i].y == this.head.y)
-				setup();
-		//if (x > width || x < 0 || y > height || y < 0)
-		//  setup();
+  
+    show() {
+      // draw the icon CENTERED around the X and Y coords of the bird object
+      image(this.icon, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
     }
-    
-    createFood(){
-        let vector = createVector(floor(random(this.col)), floor(random(this.row)));
-        vector.mult(this.scl);
-        for(let i = 0; i < this.nTail; i++){
-            if(dist(vector.x, vector.y, s.tail[i].x, s.tail[i].y) <= 1){
-                vector = createVector(floor(random(this.col)), floor(random(this.row)));
-                vector.mult(this.scl);
-                i = 0;
-            }
-        }
-        this.food = vector;
-        return vector;
+  
+    up() {
+      this.velocity = this.lift;
+    }
+  
+    update() {
+      this.velocity += this.gravity;
+      this.y += this.velocity;
+  
+      if (this.y >= height - this.height / 2) {
+        this.y = height - this.height / 2;
+        this.velocity = 0;
+      }
+  
+      if (this.y <= this.height / 2) {
+        this.y = this.height / 2;
+        this.velocity = 0;
+      }
     }
 }
 
-//NOthing else
+class Pipe {
+    constructor() {
+      this.spacing = 130;
+      this.top = random(height / 6, 3 / 4 * height);
+      this.bottom = this.top + this.spacing;
+  
+      this.x = width;
+      this.w = 80;
+      this.speed = 3;
+  
+      this.passed = false;
+      this.highlight = false;
+    }
+  
+    hits(bird) {
+      let halfBirdHeight = bird.height / 2;
+      let halfBirdwidth = bird.width / 2;
+      if (bird.y - halfBirdHeight < this.top || bird.y + halfBirdHeight > this.bottom) {
+        //if this.w is huge, then we need different collision model
+        if (bird.x + halfBirdwidth > this.x && bird.x - halfBirdwidth < this.x + this.w) {
+          this.highlight = true;
+          this.passed = true;
+          return true;
+        }
+      }
+      this.highlight = false;
+      return false;
+    }
+  
+    //this function is used to calculate scores and checks if we've went through the pipes
+    pass(bird) {
+      if (bird.x > this.x && !this.passed) {
+        this.passed = true;
+        return true;
+      }
+      return false;
+    }
+  
+    drawHalf() {
+      let howManyNedeed = 0;
+      let peakRatio = pipePeakSprite.height / pipePeakSprite.width;
+      let bodyRatio = pipeBodySprite.height / pipeBodySprite.width;
+      //this way we calculate, how many tubes we can fit without stretching
+      howManyNedeed = Math.round(height / (this.w * bodyRatio));
+      //this <= and start from 1 is just my HACK xD But it's working
+      for (let i = 0; i < howManyNedeed; ++i) {
+        let offset = this.w * (i * bodyRatio + peakRatio);
+        image(pipeBodySprite, -this.w / 2, offset, this.w, this.w * bodyRatio);
+      }
+      image(pipePeakSprite, -this.w / 2, 0, this.w, this.w * peakRatio);
+    }
+  
+    show() {
+      push();
+      translate(this.x + this.w / 2, this.bottom);
+      this.drawHalf();
+      translate(0, -this.spacing);
+      rotate(PI);
+      this.drawHalf();
+      pop();
+    }
+  
+    update() {
+      this.x -= this.speed;
+    }
+  
+    offscreen() {
+      return (this.x < -this.w);
+    }
+  }
