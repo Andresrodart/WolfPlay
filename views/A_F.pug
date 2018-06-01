@@ -25,10 +25,12 @@ block content
                                     button.col.s12.btn.btn-large.waves-effect.waves-light.grey.darken-4(type="submit" name="btn_login") Send
     .Formu
         h5
-            | `C_n = (a(-1 + (-1)^n * (1 - i*n*pi)))/(2 * pi^2 * n^2) + (b * (-1)^n * (pi * n * (2 + i * pi * n) + (2 * i * (-1)^n) - 2 * i))/(2 * pi^3 * n^3)`
+            script(type="math/asciimath")
+                | `C_n = (a(-1 + (-1)^n * (1 - i*n*pi)))/(2 * pi^2 * n^2) + (b * (-1)^n * (pi * n * (2 + i * pi * n) + (2 * i * (-1)^n) - 2 * i))/(2 * pi^3 * n^3)`
         br
         h5 
-            | `C_0 = a/2 + b/3`
+            script(type="math/asciimath")
+                | `C_0 = a/2 + b/3`
 
             
     .container.tit(style="visibility: hidden;")
