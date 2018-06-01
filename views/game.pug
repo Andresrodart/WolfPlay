@@ -9,9 +9,11 @@ block content
         .tap-target-content
             h5 Controlls
             if title=='snake'   
-                p Use A, S, D, W To move the charcater
+                p Usa la teclas A, S, D, W para moverte//Use A, S, D, W To move the charcater
             else if title=='minesweeper'
-                p Select with the mouse a cell to reveal it.
+                p Con el mause selcciona la celda para revelarla // Select with the mouse a cell to reveal it.
+            else if title=='minesweeper'
+                p Usa la barra espaciadora para saltar // Use space bar to move
     
     #control.fixed-action-btn(onclick="$('.tap-target').tapTarget('open')")
         a.btn-floating.btn-large.grey.darken-3
