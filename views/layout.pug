@@ -6,12 +6,11 @@ html(lang='en')
         meta(name="viewport" content="width=device-width, initial-scale=1")
         //CSS
         link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous")
         link(href="../stylesheets/materialize.css" type="text/css" rel="stylesheet" media="screen,projection")
         link(href='../stylesheets/style.css', rel='stylesheet')
         if !index    
             link(href='../stylesheets/responsive.css', rel='stylesheet')
-        script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
-        script|(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-4557842483609533",enable_page_level_ads: true});
         block head
 
     body
@@ -65,12 +64,18 @@ html(lang='en')
         footer(class="page-footer")
             div(class="container")
                 div(class="row")
-                    div(class="col l6 s12")
-                        h5(class="white-text") Company Bio
+                    div(class="col l9 s12")
+                        h5(class="white-text") About This
+                        p Un simple página web con contenido multimedia
                     div(class="col l3 s12")
-                        h5(class="white-text") Settings
-                    div(class="col l3 s12")
-                        h5(class="white-text") Connect
+                        h5(class="white-text") Contact
+                        ul
+                            li
+                                i.fab.fa-twitter
+                                a.brown-text.text-lighten-3(href='https://twitter.com/WYHN_')  @WYHN_
+
+
+                        
     
             div(class="footer-copyright")
                 .container
