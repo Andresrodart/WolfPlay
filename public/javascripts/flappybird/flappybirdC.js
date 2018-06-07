@@ -30,7 +30,7 @@ function setup() {
             e.preventDefault();
         }
     }, false);
-    canvas = createCanvas(500, 500);
+    canvas = createCanvas(370, 500);
     canvas.parent('gameHolder');
     reset();
 }

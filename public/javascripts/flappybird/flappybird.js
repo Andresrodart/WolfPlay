@@ -16,8 +16,8 @@ class Bird {
     this.velocity = 0;
 
     this.icon = birdSprite;
-    this.width = 30;
-    this.height = 27;
+    this.width = 27;
+    this.height = 24;
   }
 
   show() {
@@ -47,7 +47,7 @@ class Bird {
 
 class Pipe {
   constructor() {
-    this.spacing = 125;
+    this.spacing = 130;
     this.top = random(height / 6, 3 / 4 * height);
     this.bottom = this.top + this.spacing;
 
