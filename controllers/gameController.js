@@ -7,12 +7,13 @@ const { sanitizeBody } = require('express-validator/filter');
 exports.Game_update_post = function(req, res) {
     Game.checkValue(req.params.game, req.body.score, (err, val)=>{
         if(err) res.send('Fail');
-        else if(val == '0'){
+        else if(val === '0'){
             Game.create({"name": req.params.game,
             "scores": [{gamer: req.session.user, score: req.body.score}],
-            },function(err, user){
-                if (err) {
-                    callback(null, false);
+            },function(errorr, user){
+                if (errorr) {
+                    console.log(errorr);
+                    res.send('Fail');
                 } else {
                     return res.send('succes');
                 }
