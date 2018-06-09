@@ -14,8 +14,13 @@ class Minesweeper{
     logic(i, j){
         if (this.grid[i][j].bomb){//If i found a bomb
             for (let k = 0; k < this.cols; k++)
-                for (let l = 0; l < this.rows; l++)
-                    this.grid[l][k].revealed = true;
+                for (let l = 0; l < this.rows; l++){
+                    try {
+                        this.grid[k][l].revealed = true;
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
             clearInterval(Time);
         }
         else if(this.boxReveled == this.cols * this.rows - this.totalBombs){
@@ -67,6 +72,8 @@ class Minesweeper{
         for (let i = 0; i < cols; i++)
             for (let j = 0; j < rows; j++)
                 this.grid[i][j].neighborCount = this.countBombs(this.grid[i][j]);
+        
+                console.log(this.grid.length + '\n' + this.cols + '\n' + this.rows);
     }//Close M2A
 
     countBombs(cell){

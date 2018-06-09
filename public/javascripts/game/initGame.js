@@ -11,7 +11,7 @@
                 if (data == 'succes' ) {
                     console.log("Bissnes");
                 }
-                else if(data == 'mailExist'){
+                else{
                     console.log("NoBissnes");
                 }
            });

@@ -16,14 +16,15 @@ html(lang='en')
     body
         nav(class= 'NavBarWP' role="navigation")
             div(class="nav-wrapper container")
+                
                 if user
-                    a(id="logo-container" href="/home" class="brand-logo white-text")
-                        img(src="../images/LogoS.png")
+                    a(href="/home" class="white-text")
+                        img(id="logo-container" src="../images/LogoS.png")
                 else
-                    a(id="logo-container" href="/" class="brand-logo white-text")
+                    a(id="logo-container" href="/" class="white-text")
                         img(src="../images/LogoS.png")
                 block midNavBar
-                ul(class="right hide-on-med-and-down")
+                ul.right
                     li
                         if user
                             a(href="" data-target="slide-out" class="sidenav-trigger white-text show-on-large button-collapse")
@@ -52,11 +53,15 @@ html(lang='en')
                     a(class="waves-effect" href="#!") Third Link With Waves
 
             div(id="index-banner" class="parallax-container content")
+                .quart-fixer
                 block content
+                .quart-fixer
 
         if index  
             div(id="index-banner" class="parallax-container smallybanner")
+                .mid-fixer
                 block content
+                .fixer
         
         block postBanner
 
@@ -67,20 +72,25 @@ html(lang='en')
                     div(class="col l9 s12")
                         h5(class="white-text") About This
                         p Un simple página web con contenido multimedia
+                        p Thanks to all freeware coders wich help in the creation of this content
                     div(class="col l3 s12")
                         h5(class="white-text") Contact
                         ul
                             li
                                 i.fab.fa-twitter
                                 a.brown-text.text-lighten-3(href='https://twitter.com/WYHN_')  @WYHN_
+                            li 
+                                i.fas.fa-envelope
+                                a.brown-text.text-lighten-3   chiefalphadog@gmail.com
 
 
                         
     
             div(class="footer-copyright")
                 .container
-                    | Made by 
+                    | Page made by 
                     a.brown-text.text-lighten-3(href='') Andres Rodart
+                        block footer
 
         block scriptPre
         

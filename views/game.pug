@@ -20,7 +20,10 @@ block content
     #control.fixed-action-btn(onclick="$('.tap-target').tapTarget('open')")
         a.btn-floating.btn-large.grey.darken-3
             i.large.material-icons videogame_asset
-    
+
+block footer
+    if thanks
+        a Thanks to #{thanks} 
 block script
     script(src='../javascripts/game/initGame.js')
     script(src="../javascripts/p5/p5/p5.min.js")

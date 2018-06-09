@@ -105,24 +105,25 @@ function showScores() {
 }
 
 function gameover() {
-  textSize(64);
-  textAlign(CENTER, CENTER);
-  text('GAMEOVER', width / 2, height / 2);
-  textAlign(LEFT, BASELINE);
-  maxScore = max(score, maxScore);
-  isOver = true;
-  noLoop();
+    if(isOver) $( '#gameHolder' ).trigger( "gameEnd", [ {score: score} ] );
+    textSize(64);
+    textAlign(CENTER, CENTER);
+    text('GAMEOVER', width / 2, height / 2);
+    textAlign(LEFT, BASELINE);
+    maxScore = max(score, maxScore);
+    isOver = true;
+    noLoop();
 }
 
 function reset() {
-  isOver = false;
-  score = 0;
-  bgX = 0;
-  pipes = [];
-  bird = new Bird();
-  pipes.push(new Pipe());
-  gameoverFrame = frameCount - 1;
-  loop();
+    isOver = false;
+    score = 0;
+    bgX = 0;
+    pipes = [];
+    bird = new Bird();
+    pipes.push(new Pipe());
+    gameoverFrame = frameCount - 1;
+    loop();
 }
 
 function keyPressed() {

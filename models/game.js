@@ -20,6 +20,9 @@ GameSchema.statics.checkValue = function (game, score, callback) {
     .sort({'scores.score': 'desc'})
     .exec((err, doc)=>{
         if(err) callback(err);
+        else if(!doc){
+            return callback(null, '0');
+        }
         else{
             console.log(doc.scores.length);
             if(doc.scores.length < 10) return callback(null, true);

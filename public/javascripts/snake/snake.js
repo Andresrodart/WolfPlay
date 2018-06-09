@@ -12,6 +12,10 @@ function setup() {
         }
     }, false);
     let wid = hei = 476;
+    if(window.innerWidth < 600){
+        wid = window.innerWidth - (window.innerWidth % 14);
+        hei = window.innerHeight - (window.innerHeight % 14) - (14 * 2);
+    }
 	canvas = createCanvas(wid, hei);
     canvas.parent('gameHolder');
 	s = new Snake(wid, hei);
@@ -42,9 +46,34 @@ function keyPressed(){
 			s.input(s.scl, 0);
 		if((keyCode === LEFT_ARROW || keyCode === 65) && s.xspeed != s.scl)
 			s.input(-s.scl, 0);
-		
 		CanWeMove = false;
-	}
+    }
 }
 
+function touchMoved() {
+    if(CanWeMove === true){
+		if((mouseY < 165 && mouseX > 100 && mouseX < 210) && s.yspeed != s.scl)
+			s.input(0, -s.scl);
+		else if((mouseY >= 330 && mouseX > 100 && mouseX < 210) && s.yspeed != -s.scl)
+			s.input(0, s.scl);
+		else if((mouseX >= 210) && s.xspeed != -s.scl)
+			s.input(s.scl, 0);
+		if((mouseX <= 100) && s.xspeed != s.scl)
+			s.input(-s.scl, 0);
+		CanWeMove = false;
+    }
+}
 
+function touchStarted() {
+    if(CanWeMove === true){
+		if((mouseY < 165 && mouseX > 100 && mouseX < 210) && s.yspeed != s.scl)
+			s.input(0, -s.scl);
+		else if((mouseY >= 330 && mouseX > 100 && mouseX < 210) && s.yspeed != -s.scl)
+			s.input(0, s.scl);
+		else if((mouseX >= 210) && s.xspeed != -s.scl)
+			s.input(s.scl, 0);
+		if((mouseX <= 100) && s.xspeed != s.scl)
+			s.input(-s.scl, 0);
+		CanWeMove = false;
+    }
+}

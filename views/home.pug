@@ -1,12 +1,10 @@
 extends layout.pug
 
 block midNavBar
-    a(class="brand-logo white-text center" id="user") Welcome #{user}
+    a(class="brand-logo white-text center hide-on-small-only" id="user") Welcome #{user}
 
 block content
-    .tenpx
-    .tenpx
-    .tenpx
+    .quart-fixer
     .carousel
         a.carousel-item(href="")
             img.img_C(src="../images/Logo.svg")
@@ -17,6 +15,7 @@ block content
         a.carousel-item(href="home/A_F")
             img.img_C(src="../images/A_F.svg")
         a.carousel-item(href="home/snake")
-            img.img_C(src="../images/snake-game.svg")  
+            img.img_C(src="../images/snake-game.svg")
+    .quart-fixer
 block script
     script(src="../javascripts/home/initHome.js")

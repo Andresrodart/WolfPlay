@@ -9,10 +9,15 @@ var Time;
 var score ='00:00';
 
 function setup() {
-    canvas = createCanvas(501, 501);
+    let wid = hei = 501;
+    if(window.innerWidth < 600){
+        wid = window.innerWidth - (window.innerWidth % 10) + 1;
+        hei = window.innerHeight - (window.innerHeight % 10) + 1;
+    }
+    canvas = createCanvas(wid, hei);
     canvas.parent('gameHolder');
-    cols = floor(width / w);
-    rows = floor(height / w);
+    cols = floor(wid / w);
+    rows = floor(hei / w);
     minesweeper = new Minesweeper(w, 40, cols, rows);
     document.getElementById("score").innerHTML = score;
     gameStarted = true;

@@ -7,7 +7,17 @@ const { sanitizeBody } = require('express-validator/filter');
 exports.Game_update_post = function(req, res) {
     Game.checkValue(req.params.game, req.body.score, (err, val)=>{
         if(err) res.send('Fail');
-        if(val){
+        else if(val == '0'){
+            Game.create({"name": req.params.game,
+            "scores": [{gamer: req.session.user, score: req.body.score}],
+            },function(err, user){
+                if (err) {
+                    callback(null, false);
+                } else {
+                    return res.send('succes');
+                }
+            });
+        }else if(val && val != '0'){
             if (req.params.game.toLowerCase() == 'minesweeper') {
                 Game.update({ name: req.params.game.toLowerCase() }, { 
                     $push: { 
