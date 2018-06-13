@@ -35,9 +35,6 @@
                 Plotly.newPlot('plotAng', data_ang);
                 var elements = document.querySelectorAll('.tit');
                 elements = elements.length ? elements : [elements];
-                for (var index = 0; index < elements.length; index++) {
-                    elements[index].style.visibility = 'visible';
-                }
            });
         })
 

@@ -21,6 +21,12 @@ router.get('/A_F', function(req, res, next){
     res.render('A_F',{title: 'WolfPlay', user: req.session.user, mail: req.session.mail});
 });
 
+router.get('/F_T', function(req, res, next){
+    //if (!req.session.userId)
+      //  res.redirect('/');
+    res.render('F_T',{title: 'WolfPlay', user: req.session.user, mail: req.session.mail});
+});
+
 router.post('/A_F', function(req, res, next){
     var a = req.body.numA;
     var b = req.body.numB;
@@ -39,7 +45,25 @@ router.post('/A_F', function(req, res, next){
     matrix.push(exp);
     matrix[10] = {abs: c0.abs(), ang: c0.arg()};
     return res.send(matrix);
-    //res.render('A_F',{title: 'WolfPlay', user: req.session.user, mail: req.session.mail, respons:true});
+});
+
+router.post('/F_T', function(req, res, next){
+    var a = req.body.numA;
+
+    var exp = `f(t) = 1/(${a}^2+t^2)`;
+    var matrix = [new Array(), new Array()];
+
+    let parser = math.parser();
+    parser.eval(exp);
+    for (let index = -5; index <= 5; index+= .5)
+        matrix[0].push( parser.eval(`f(${index})`));
+    exp = `f(w) = (sqrt(pi/2) e^(-${a}*abs(w)))/${a}`;
+    parser = math.parser();
+    parser.eval(exp);
+    for (let index = -5; index <= 5; index+= .5)
+        matrix[1].push( parser.eval(`f(${index})`));
+        //matrix.push(exp);
+    return res.send(matrix);
 });
 
 router.get('/:game', function(req, res, next) {

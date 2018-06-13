@@ -57,13 +57,13 @@ p {
 }
 
 #WelcomeDiv{
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(30%);
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(10%);
 }
 
 .parallax-container .section {
-  width: 100%;
+    width: 100%;
 }
 
 .tenpx{
@@ -88,6 +88,16 @@ p {
   }
 }
 
+.fixer{
+    height:40vh;
+}
+.mid-fixer{
+    height:20vh;
+}
+.quart-fixer{
+    height:10vh;
+}
+
 @media only screen and (min-width : 600px) {
     .carousel .carousel-item {
         height: 100%;
@@ -98,7 +108,7 @@ p {
     }
 
     .gameHolder{
-        padding-top: 4%;
+        padding-top: 1%;
         position: absolute;
         top: 45%;
         left: 50%;
@@ -110,39 +120,31 @@ p {
 
 
 @media screen and (min-width: 1600px) {
-    .fixer{
-        height:40vh;
-    }
-    .mid-fixer{
-        height:20vh;
-    }
-    .quart-fixer{
-        height:10vh;
-    }
+
 }
 
 @media only screen and (max-width : 600px) {
-  #index-banner .section {
-    top: 0;
-  }
-  #logo-container{
-    padding-top: 5%;
-    padding-left: 5%;
-    height: 40px;
-    width:auto; /* you can use % */
-  }
+    #index-banner .section {
+        top: 0;
+    }
+    #logo-container{
+        padding-top: 5%;
+        padding-left: 5%;
+        height: 40px;
+        width:auto; /* you can use % */
+    }
 }
 
 .icon-block {
-  padding: 0 15px;
+    padding: 0 15px;
 }
 .icon-block .material-icons {
-  font-size: inherit;
+    font-size: inherit;
 }
 
 footer.page-footer{
-  margin: 0;
-  background-color: #000a12;
+    margin: 0;
+    background-color: #000a12;
 }
 
 .dark{

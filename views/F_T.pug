@@ -1,7 +1,6 @@
 extends layout.pug
 block head
     script(src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=AM_CHTML")
-
 block content
     
     main
@@ -10,15 +9,11 @@ block content
                 .section
                 .container
                     .z-depth-1.lighten-4.row.NavBarWP.log_in
-                        form.col.s12(method="post" action="/home/A_F" id="submit")
+                        form.col.s12(method="post" action="/home/F_T" id="submit")
                             .row
                                 .input-field.col.s12
                                     input.white-text#numA(type="text" name="numA")
                                     label() Ingresa a
-                            .row
-                                .input-field.col.s12
-                                    input.white-text#numA(type="text" name="numB")
-                                    label() Ingresa b
                             br
                             center
                                 .row
@@ -26,21 +21,26 @@ block content
 block postBanner    
     .section.dark.center
         br
-        h5.light.white-text La amplitud y la frecuancia de la siguiente función, para una serie de Fourier
+        h5.light.white-text Dada la función
         br
         h5.light.white-text
             script(type="math/asciimath")
-                |C_n = (a(-1 + (-1)^n * (1 - i*n*pi)))/(2 * pi^2 * n^2) + (b * (-1)^n * (pi * n * (2 + i * pi * n) + (2 * i * (-1)^n) - 2 * i))/(2 * pi^3 * n^3)
+                |f(t) = 1/(a^2+t^2)
+        br
+        h5.light.white-text Y su transformada de Fourier
         br
         h5.light.white-text 
             script(type="math/asciimath")
-                |C_0 = a/2 + b/3
+                |F(w) = (sqrt(pi/2) e^(-a*abs(w)))/a
+        br
+        h5.light.white-text Sus gráficas son
+        br
     
     .section.center.tit
-        h2 Gráfica de amplitud
+        h2 Gráfica de función
         .plotAbs#plotAbs
-        h2 Gráfica de freceuncia
+        h2 Gráfica de transformada
         .plotAng#plotAng
 block script
-    script(src='../javascripts/home/initA_F.js')
+    script(src='../javascripts/home/initT_F.js')
     script(src='../javascripts/plotly-latest.min.js')
