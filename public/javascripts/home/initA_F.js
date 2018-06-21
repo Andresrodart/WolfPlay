@@ -21,11 +21,13 @@
                 var trace1 = {
                     x: xValues,
                     y: yValues,
+                    mode: 'markers',
                     type: 'scatter'
                 };
                 var trace2 = {
                     x: xValues,
                     y: yValues_ang,
+                    mode: 'markers',
                     type: 'scatter'
                 };
                 console.log(data[data.length - 1]);

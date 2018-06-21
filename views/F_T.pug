@@ -1,37 +1,27 @@
 extends layout.pug
 block head
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=AM_CHTML")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async)
 block content
-    
-    main
-        center
-            h5.TitleWP.SecundaryText.text-lighten-2 Programa para observar la amplitud y frecuencia
-                .section
-                .container
-                    .z-depth-1.lighten-4.row.NavBarWP.log_in
-                        form.col.s12(method="post" action="/home/F_T" id="submit")
-                            .row
-                                .input-field.col.s12
-                                    input.white-text#numA(type="text" name="numA")
-                                    label() Ingresa a
-                            br
-                            center
-                                .row
-                                    button.col.s12.btn.btn-large.waves-effect.waves-light.grey.darken-4(type="submit" name="btn_login") Send
-block postBanner    
-    .section.dark.center
-        br
+    .section
+        h4
+            |Comparación de una función y su transformada de Fourier
+        .quart-fixer
         h5.light.white-text Dada la función
         br
-        h5.light.white-text `f(t) = 1/(a^2+t^2)`
+        h5.light.white-text Con `f(t) = 1/(a^2+t^2)`
         br
         h5.light.white-text Y su transformada de Fourier
         br
         h5.light.white-text `F(w) = (sqrt(pi/2) e^(-a*abs(w)))/a`
-        br
-        h5.light.white-text Sus gráficas son
-        br
-    
+block postBanner
+    center
+        .section.dark
+            br
+            h5.white-text Mueva el punto para elgir el valor de a
+            .section
+                form.col.s12(method="post" action="/home/F_T" id="submit")
+                    p.range-field
+                        input(type="range" min="-10" max="10" name="numA" id="numA" step="0.2")
     .section.center.tit
         h2 Gráfica de función
         .plotAbs#plotAbs

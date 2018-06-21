@@ -1,9 +1,8 @@
 (function($){
-    $("#submit").on("submit",function  (e) {
+    $("#submit").on("change",function  (e) {
         e.preventDefault();
         console.log();
         $.post("/home/F_T", $(this).serialize(), function( data ) {
-            console.log(data);
             var xValues = new Array();
             var yValues = new Array();
             var yValues_T = new Array();
@@ -24,7 +23,6 @@
                 y: yValues_T,
                 type: 'scatter'
             };
-            console.log(data[data.length - 1]);
             var data_abs = [trace1];
             var data_ang = [trace2];
             Plotly.newPlot('plotAbs', data_abs);

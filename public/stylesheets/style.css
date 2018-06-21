@@ -198,7 +198,7 @@ html, body {
 }
 
 .gameBox{
-  padding-top: 25%;
+    padding-top: 25%;
     padding-right: 50%;
     padding-bottom: 50%;
     padding-left: 50%;
@@ -268,3 +268,18 @@ html, body {
 .smallybanner{
     min-height: 500px !important;
 }
+
+input[type=range]::-webkit-slider-thumb {
+    background-color: #90A4AE;
+  }
+  input[type=range]::-moz-range-thumb {
+    background-color: #90A4AE;
+  }
+  input[type=range]::-ms-thumb {
+    background-color: #90A4AE;
+  }
+
+  /***** These are to edit the thumb and the text inside the thumb *****/
+  input[type=range] + .thumb {
+    background-color: #90A4AE;
+  }
