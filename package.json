@@ -12,7 +12,7 @@
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "async": "^2.6.0",
-    "bcrypt": "^2.0.1",
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.2",
     "complex.js": "^2.0.10",
     "compression": "^1.7.2",
@@ -33,5 +33,17 @@
   },
   "devDependencies": {
     "nodemon": "^1.17.4"
-  }
+  },
+  "description": "Demo http://thechiefcorner.com",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andresrodart/WolfPlay.git"
+  },
+  "author": "Andrésrodart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andresrodart/WolfPlay/issues"
+  },
+  "homepage": "https://github.com/Andresrodart/WolfPlay#readme"
 }

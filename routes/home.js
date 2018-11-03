@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var path = require('path');
 var game_controller = require('../controllers/gameController');
-var Game = require('../models/game');
-var mongoose = require('mongoose');
 var math = require('mathjs');
 var Complex = require('complex.js');
-
+var proba_Controller = require('../controllers/probaController')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     if (!req.session.userId) {
@@ -14,6 +11,12 @@ router.get('/', function(req, res, next) {
     }else
         res.render('home',{title: 'Home', user: req.session.user, mail: req.session.mail});//res.sendFile(path.join(__dirname, '../public/html/home.html'));//
 });
+
+router.get('/proba', function(req, res, next){
+    res.render('proba',{title: 'WolfPlay'});
+});
+
+router.post('/proba', proba_Controller.Proba_Post);
 
 router.get('/A_F', function(req, res, next){
     if (!req.session.userId)
