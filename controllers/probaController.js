@@ -16,8 +16,8 @@ function f1(x, r, m){
 exports.Proba_Post = function(req, res, next){
     let a = parseFloat(req.body.numA);
     let b = parseFloat(req.body.numB);
-    let r = parseFloat(req.body.numRo);
-    let m = parseFloat(req.body.numMiu);
+    let r = parseFloat(req.body.numR);
+    let m = parseFloat(req.body.numM);
     let result = simpson(f1, r, m, a, b , 70)
     console.log(f1, r, m, a, b , 70)
     return res.send(`Resultado: ${result}`);
