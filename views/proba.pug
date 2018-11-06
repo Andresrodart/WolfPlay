@@ -11,12 +11,22 @@ block content
                         form.col.s12(class = "integrate" method="post" action="/home/proba" id="submit")
                             .row
                                 .input-field.col.s12
-                                    input.white-text#numA(name="numA" type="number" step=".01")
+                                    input.white-text#numA(name="numA" type="number")
                                     label() Ingresa a
+                                .l    
+                                    label
+                                        input.white-text#numAi(type="checkbox" name="numAi")
+                                        span
+                                            |less infinity
                             .row
                                 .input-field.col.s12
-                                    input.white-text#numB(type="number" step=".01" name="numB")
+                                    input.white-text#numB(type="number" name="numB")
                                     label() Ingresa b
+                                .l
+                                    label
+                                        input.white-text#numBi(type="checkbox" name="numBi")
+                                        span
+                                            |infinity
                             .row
                                 .input-field.col.s12
                                     input.white-text#numR(type="number" step=".01" name="numR")

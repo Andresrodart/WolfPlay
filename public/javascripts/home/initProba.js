@@ -9,16 +9,34 @@
            });
         })
 
+        $("#numAi").change(function() {
+            if($("#numAi").is(":checked"))
+                document.getElementById("numA").disabled = true;
+            else
+                document.getElementById("numA").disabled = false;
+        });
+
+        $("#numBi").change(function() {
+            if($("#numBi").is(":checked"))
+                document.getElementById("numB").disabled = true;
+            else
+                document.getElementById("numB").disabled = false;
+        });
+
         $(".integrate").validate({
             rules: {
                 numA: {
-                    required: true
+                    required:  function(element){
+                        return !$("#numAi").is(":checked");
+                    }
                 },
                 numB: {
-                    required: true,
+                    required:  function(element){
+                        return !$("#numBi").is(":checked");
+                    },
                     min: function(element){
-                        console.log($("#numA").val() < $("#numB").val());
-                        return $("#numA").val() + 1;
+                        console.log($("#numA").val(),  $("#numB").val(), $("#numA").val() + 1);
+                        return ($("#numA").val()*1 + .0000000001);
                     }
                 },
                 numR: {
