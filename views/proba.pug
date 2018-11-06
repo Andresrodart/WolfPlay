@@ -8,22 +8,22 @@ block content
                 .section
                 .container
                     .z-depth-1.lighten-4.row.NavBarWP.log_in
-                        form.col.s12(method="post" action="/home/proba" id="submit")
+                        form.col.s12(class = "integrate" method="post" action="/home/proba" id="submit")
                             .row
                                 .input-field.col.s12
-                                    input.white-text#numA(type="text" name="numA")
+                                    input.white-text#numA(name="numA" type="number" step=".01")
                                     label() Ingresa a
                             .row
                                 .input-field.col.s12
-                                    input.white-text#numA(type="text" name="numB")
+                                    input.white-text#numB(type="number" step=".01" name="numB")
                                     label() Ingresa b
                             .row
                                 .input-field.col.s12
-                                    input.white-text#numA(type="text" name="numRo")
+                                    input.white-text#numR(type="number" step=".01" name="numR")
                                     label() Ingresa &sigma;
                             .row
                                 .input-field.col.s12
-                                    input.white-text#numA(type="text" name="numMiu")
+                                    input.white-text#numM(type="number" step=".01" name="numM")
                                     label() Ingresa &mu;        
                             br
                             center
