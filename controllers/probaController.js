@@ -18,11 +18,18 @@ exports.Proba_Post = function(req, res, next){
     let b = parseFloat(req.body.numB);
     let r = parseFloat(req.body.numR);
     let m = parseFloat(req.body.numM);
+    let result = "Hubo un problema :/";
+    
     if(req.body.numAi)
         a = m - 10*r;
     if(req.body.numBi)
         b = m + 10*r;
-    let result = simpson(f1, r, m, a, b , 70)
+    if(req.body.numAi && req.body.numBi)
+        result = 1;
+    else
+        result = simpson(f1, r, m, a, b , 70);
+    if(!result || !r || !m)
+        result = '';
     console.log(f1, r, m, a, b , 70)
     return res.send(`Resultado: ${result}`);
 }
