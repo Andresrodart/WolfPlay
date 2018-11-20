@@ -18,6 +18,12 @@ router.get('/proba', function(req, res, next){
 
 router.post('/proba', proba_Controller.Proba_Post);
 
+router.get('/proba_2', function(req, res, next){
+    res.render('proba_2',{title: 'WolfPlay'});
+});
+
+router.post('/proba_2', proba_Controller.Proba_2_Post);
+
 router.get('/A_F', function(req, res, next){
     if (!req.session.userId)
         res.redirect('/');

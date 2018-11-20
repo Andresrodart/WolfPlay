@@ -9,6 +9,13 @@
   font-family: "moonhouse"; src:  url("../fonts/moonhouse.ttf");
 }
 
+#probaTable {
+    column-count:4;
+    -moz-column-count:4;
+    -webkit-column-count:4;
+    width: auto;
+    border: 1px solid #eee;
+}
 
 /* label focus color */
 .input-field input:focus + label {
