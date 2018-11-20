@@ -1,3 +1,4 @@
+var data 
 function loadJSON(callback) {   
 
     var xobj = new XMLHttpRequest();
@@ -14,8 +15,8 @@ function loadJSON(callback) {
 
  function init(){
     loadJSON(function(response) {
-        var data = JSON.parse(response);
-        var table = document.createElement('table');
+        data = JSON.parse(response);
+        /*var table = document.createElement('table');
         table.classList.add("highlight");
         //var zTable = Object.keys(data)
         var count = Object.keys(data).length;
@@ -43,7 +44,7 @@ function loadJSON(callback) {
             aux++;
         }
         document.getElementById('probaTable').appendChild(table);
-        carga.style.visibility = 'hidden';
+        carga.style.visibility = 'hidden';*/
     });
 }
 
@@ -53,6 +54,10 @@ function ready(fn) {
     } else {
       document.addEventListener('DOMContentLoaded', fn);
     }
+}
+
+function search(){
+    document.getElementById('Cargando').innerHTML = data[ document.getElementById('z').value * 1]
 }
 
 ready(init)

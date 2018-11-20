@@ -2,11 +2,19 @@ extends layout.pug
 block head
 
 block content
-    .container.z-depth-1.lighten-4.row.TitleWP#Cargando
-            |Cargando tabla
+    .container.SecundaryText.text-lighten-2
+        .z-depth-1.lighten-4.row.NavBarWP.log_in
+            .row
+                .input-field.col.s12
+                    input.white-text(name="numA" type="number" id='z')
+                    label() Ingresa z
+            center
+                .row
+                    button.col.s12.btn.btn-large.waves-effect.waves-light.grey.darken-4#submit(onclick="search()" name="btn_login") Calcular
+        
+    .container.SecundaryText.text-lighten-2
+        .z-depth-1.lighten-4.row.NavBarWP.log_in
+            .row#Cargando
     .section
-    .container.z-depth-1.lighten-4.row.NavBarWP
-        #probaTable
-            |
 block script
     script(src='../javascripts/home/initProba_2.js')
