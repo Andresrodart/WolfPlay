@@ -40,7 +40,6 @@ function loadJSON(callback) {
                 else
                     tabCell.innerHTML = data[i];
             }
-            console.log(aux * 100 / count);
             aux++;
         }
         document.getElementById('probaTable').appendChild(table);
