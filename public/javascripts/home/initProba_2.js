@@ -57,7 +57,11 @@ function ready(fn) {
 }
 
 function search(){
-    document.getElementById('Cargando').innerHTML = data[ document.getElementById('z').value * 1]
+    let max = data[ document.getElementById('z').value * 1]
+    let min = data[ document.getElementById('z_2').value * 1]
+    document.getElementById('Cargando').innerHTML = max
+    document.getElementById('Cargando_2').innerHTML = min
+    document.getElementById('Cargando_R').innerHTML = max*1 - min*1
 }
 
 ready(init)

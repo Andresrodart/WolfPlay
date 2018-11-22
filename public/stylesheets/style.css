@@ -9,6 +9,10 @@
   font-family: "moonhouse"; src:  url("../fonts/moonhouse.ttf");
 }
 
+.column {
+    float: left;
+    width: 50%;
+}
 /* label focus color */
 .input-field input:focus + label {
   color:  #fafafa !important;
