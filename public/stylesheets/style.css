@@ -9,7 +9,6 @@
   font-family: "moonhouse"; src:  url("../fonts/moonhouse.ttf");
 }
 
-
 /* label focus color */
 .input-field input:focus + label {
   color:  #fafafa !important;

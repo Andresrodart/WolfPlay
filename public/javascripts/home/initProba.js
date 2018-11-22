@@ -4,21 +4,25 @@
             e.preventDefault();
             console.log();
             $.post("/home/proba", $(this).serialize(), function( data ) {
-                console.log(data);
                 document.getElementById('Result').innerHTML = data;
            });
         })
 
         $("#numAi").change(function() {
-            if($("#numAi").is(":checked"))
+            if($("#numAi").is(":checked")){
+                document.getElementById("numA").value = '';
+                $("#numA").addClass('valid').removeClass('invalid');
                 document.getElementById("numA").disabled = true;
-            else
+            }else
                 document.getElementById("numA").disabled = false;
         });
 
         $("#numBi").change(function() {
-            if($("#numBi").is(":checked"))
+            if($("#numBi").is(":checked")){
+                document.getElementById("numB").value = '';
+                $("#numB").addClass('valid').removeClass('invalid');
                 document.getElementById("numB").disabled = true;
+            }
             else
                 document.getElementById("numB").disabled = false;
         });
@@ -35,8 +39,10 @@
                         return !$("#numBi").is(":checked");
                     },
                     min: function(element){
-                        console.log($("#numA").val(),  $("#numB").val(), $("#numA").val() + 1);
-                        return ($("#numA").val()*1 + .0000000001);
+                        if(!$("#numAi").is(":checked"))
+                            return ($("#numA").val()*1 + .00000000001);
+                        else
+                            return element.value;
                     }
                 },
                 numR: {
@@ -71,7 +77,7 @@
               } else {
                 error.insertAfter(element);
               }
-            }
+            },
         });
 
     }); // end of document ready
