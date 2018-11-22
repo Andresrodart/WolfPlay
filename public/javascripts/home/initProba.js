@@ -44,8 +44,7 @@
                     min: 0
                 },
                 numM: {
-                    required: true,
-                    min: 0
+                    required: true
                 },
             },
             //For custom messages
