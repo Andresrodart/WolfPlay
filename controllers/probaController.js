@@ -51,10 +51,11 @@ exports.Proba_Post = function(req, res, next){
 
 exports.Proba_2_Post = function(req, res, next){
     let table = {};
+    console.log("En marcha")
     fs.readFile('./public/files/tableNormalDistribution.json', 'utf8', function (err, data) {
         if (err){
-            for (let index = -60000; index <= 60000; index ++)
-                    table[(index/10000).toString()] = simpson(f2, -6, index/10000, 70);
+            for (let index = -30000; index <= 30000; index ++)
+                    table[(index/10000).toString()] = simpson(f2, -3, index/10000, 100);
             fs.writeFile("./public/files/tableNormalDistribution.json", JSON.stringify(table, null, 4), (err) => {
                 if (err) {
                     console.error(err);
