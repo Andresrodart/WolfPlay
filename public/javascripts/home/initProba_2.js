@@ -53,7 +53,6 @@ function getKeyFromVal(dataOb, value){
             break
         else
             result = keys[index]
-    console.log(result)
     return result2*1000 - value*1000 < value*1000 - result*1000? result2:result
 } 
 function comparar ( a, b ){ return a - b; }
