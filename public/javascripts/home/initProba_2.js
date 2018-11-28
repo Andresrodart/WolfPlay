@@ -8,6 +8,7 @@ function loadJSON(callback) {
           if (xobj.readyState == 4 && xobj.status == "200") {
             // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
             callback(xobj.responseText);
+            document.getElementById('cargandoDiv').style.display = "none";
           }
     };
     xobj.send(null);  
@@ -16,35 +17,6 @@ function loadJSON(callback) {
  function init(){
     loadJSON(function(response) {
         data = JSON.parse(response);
-        /*var table = document.createElement('table');
-        table.classList.add("highlight");
-        //var zTable = Object.keys(data)
-        var count = Object.keys(data).length;
-        var aux = 0;
-        var carga =  document.getElementById('Cargando')
-        
-        var col = ['z', 'Valor', 'z', 'Valor', 'z', 'Valor', 'z', 'Valor'];
-        
-        var tr = table.insertRow(-1);                   // TABLE ROW.
-        for (let i = 0; i < col.length; i++) {
-            var th = document.createElement("th");      // TABLE HEADER.
-            th.innerHTML = col[i];
-            tr.appendChild(th);
-        }
-
-        for (let i in data) {
-            tr = table.insertRow(-1);
-            for (let j = 0; j < col.length; j++) {
-                var tabCell = tr.insertCell(-1);
-                if (j % 2 == 0)
-                    tabCell.innerHTML = i;
-                else
-                    tabCell.innerHTML = data[i];
-            }
-            aux++;
-        }
-        document.getElementById('probaTable').appendChild(table);
-        carga.style.visibility = 'hidden';*/
     });
 }
 
@@ -64,4 +36,25 @@ function search(){
     document.getElementById('Cargando_R').innerHTML = max*1 - min*1
 }
 
+function search_2(){
+    let searchVal = document.getElementById('i').value * 1
+    if (searchVal < -1 || searchVal > 1)
+        document.getElementById('Cargando_i').innerHTML = 'Valor fuera de los límites'
+    else
+        document.getElementById('Cargando_i').innerHTML = getKeyFromVal(data, searchVal)
+}
+
+function getKeyFromVal(dataOb, value){
+    let keys =  Object.keys(dataOb).sort(comparar)
+    let result = 0
+    let result2 = 0
+    for (let index = 0; index < keys.length; index++)
+        if (value*1000 < dataOb[keys[index]]*1000 && (result2 = keys[index])) 
+            break
+        else
+            result = keys[index]
+    console.log(result)
+    return result2*1000 - value*1000 < value*1000 - result*1000? result2:result
+} 
+function comparar ( a, b ){ return a - b; }
 ready(init)
