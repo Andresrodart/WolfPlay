@@ -25,7 +25,7 @@
     "helmet": "^3.12.1",
     "http-errors": "~1.6.2",
     "mathjs": "^4.4.1",
-    "mongoose": "^5.0.17",
+    "mongoose": "^5.7.5",
     "morgan": "~1.9.0",
     "nodemailer": "^4.6.4",
     "npm": "^6.4.1",
