@@ -22,7 +22,7 @@ var app = express();
 
 //Set up mongoose connection
 
-var mongoDB =process.env.MONGODB_URI;
+var mongoDB = process.env.MONGODB_URI;
 
 mongoose.connect(mongoDB).then(
     () => {  console.log("Conectado a BD web") },

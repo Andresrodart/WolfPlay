@@ -3,7 +3,8 @@ var router = express.Router();
 var game_controller = require('../controllers/gameController');
 var math = require('mathjs');
 var Complex = require('complex.js');
-var proba_Controller = require('../controllers/probaController')
+var proba_Controller = require('../controllers/probaController');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     if (!req.session.userId) {
@@ -74,7 +75,6 @@ router.post('/F_T', function(req, res, next){
         //matrix.push(exp);
     return res.send(matrix);
 });
-
 router.get('/:game', function(req, res, next) {
     if (req.params.game == 'logout') {
         // delete session object
@@ -89,6 +89,7 @@ router.get('/:game', function(req, res, next) {
     if (!req.session.userId) {
         res.redirect('/');
     }else{
+		req.session.game = req.params.game;
         res.render('game',{title: req.params.game, user: req.session.user, mail: req.session.mail});//
     }
 });

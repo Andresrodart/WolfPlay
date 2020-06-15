@@ -101,6 +101,17 @@ p {
     height:10vh;
 }
 
+#index-banner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	flex-flow: column;
+}
+
+.gameHolder{
+	margin-bottom: 2rem;
+}
+
 @media only screen and (min-width : 600px) {
     .carousel .carousel-item {
         height: 100%;
@@ -108,16 +119,6 @@ p {
     }
     .parallax-container{
         text-align: center;
-    }
-
-    .gameHolder{
-        padding-top: 1%;
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        height: 30%;
-        width: 50%;
-        margin: -15% 0 0 -25%;
     }
 }
 
