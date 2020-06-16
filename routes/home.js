@@ -4,7 +4,14 @@ var game_controller = require('../controllers/gameController');
 var math = require('mathjs');
 var Complex = require('complex.js');
 var proba_Controller = require('../controllers/probaController');
-
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGODB_URI;
+const client = MongoClient(uri, { useUnifiedTopology: true });
+var db = null;
+client.connect(err => {
+	if(err) throw err;
+	db = client.db('wolfplay');
+});
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     if (!req.session.userId) {
@@ -109,6 +116,18 @@ router.get('/logout', function(req, res, next) {
   });
 
 
-router.post('/:game', game_controller.Game_update_post);
+router.post('/:game', (req, res) =>{
+	db.collection('games').findOne({name:req.params.game}).then(result=>{
+		result.scores.sort((a, b)=>{return a.score - b.score;});
+		if(result.scores[0].score < req.body.score) result.scores[0] = {gamer: req.session.user, score: req.body.score};
+		console.log(result.scores[0]);
+		result.scores.sort((a, b)=>{return a.score - b.score;});
+		db.collection('games').updateOne({name:req.params.game}, {$set:{scores:result.scores}});
+		res.json(true);
+	}).catch((err) => {
+		res.json(false);
+		throw err;
+	});
+});
 
 module.exports = router;

@@ -105,7 +105,8 @@ function showScores() {
 }
 
 function gameover() {
-    if(isOver) $( '#gameHolder' ).trigger( "gameEnd", [ {score: score} ] );
+	document.getElementById('gameHolder').dispatchEvent(evenEnd);
+	//if(isOver) $( '#gameHolder' ).trigger( "gameEnd", [ {score: score} ] );
     textSize(64);
     textAlign(CENTER, CENTER);
     text('GAMEOVER', width / 2, height / 2);

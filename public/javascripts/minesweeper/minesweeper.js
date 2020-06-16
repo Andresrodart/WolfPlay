@@ -6,8 +6,6 @@ var gameStarted = false;
 // Set the date we're counting down to
 var totalSeconds = 1;
 var Time;
-var score ='00:00';
-
 function setup() {
     let wid = hei = 501;
     if(window.innerWidth < 600){

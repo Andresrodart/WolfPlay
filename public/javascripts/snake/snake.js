@@ -1,6 +1,5 @@
 //Snake
 var s;
-var score = 0;
 var CanWeMove = true;
 var gameStarted = false;
 
@@ -20,7 +19,7 @@ function setup() {
     canvas.parent('gameHolder');
 	s = new Snake(wid, hei);
     frameRate(10);
-    if(gameStarted) $( '#gameHolder' ).trigger( "gameEnd", [ {score: score} ] );
+    //if(gameStarted) $( '#gameHolder' ).trigger( "gameEnd", [ {score: score} ] );
     gameStarted = true;
 }
 /*function mousePressed() {

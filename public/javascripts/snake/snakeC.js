@@ -46,8 +46,10 @@ class Snake{
 			this.tail[++this.nTail -1] = createVector(10, 10);
 		}
 		for (var i = 0; i < this.tail.length; i++)
-			if(this.tail[i].x == this.head.x && this.tail[i].y == this.head.y)
+			if(this.tail[i].x == this.head.x && this.tail[i].y == this.head.y){
 				setup();
+				document.getElementById('gameHolder').dispatchEvent(evenEnd);
+			}
 		//if (x > width || x < 0 || y > height || y < 0)
 		//  setup();
     }

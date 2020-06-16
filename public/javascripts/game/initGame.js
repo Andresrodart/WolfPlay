@@ -1,3 +1,5 @@
+var evenEnd = new Event('gameEnd');
+var score = 0;
 (function($){
     $(function(){
         
@@ -5,17 +7,17 @@
         $('.sidenav').sidenav();
         $('.fixed-action-btn').floatingActionButton();
         $('.tap-target').tapTarget();
-        $('#gameHolder').on("gameEnd", {foo: "bar"}, function( event, arg1 ) {
-            //event.preventDefault();
-            $.post(window.location, arg1, function( data ) {
-                if (data == 'succes' ) {
-                    console.log("Bissnes");
-                }
-                else{
-                    console.log("NoBissnes");
-                }
-           });
-        })
+        // $('#gameHolder').on("gameEnd", {foo: "bar"}, function( event, arg1 ) {
+        //     //event.preventDefault();
+        //     $.post(window.location, arg1, function( data ) {
+        //         if (data === 'succes' ) {
+        //             console.log("Bissnes");
+        //         }
+        //         else{
+        //             console.log("NoBissnes");
+        //         }
+        //    });
+        // })
     }); // end of document ready
 })(jQuery); // end of jQuery name space
 
@@ -50,7 +52,6 @@ function genericGet(url, callback) {
 		return response.json();
 	})
 	.then((data) => {
-		console.log(data);
 		callback(data);
 	});
 }
@@ -59,4 +60,13 @@ window.onload = (event) => {
 		console.log(data);
 		document.getElementById('text_score').textContent = 'High Score: ' + data.user + ' - ' + data.score;
 	});
+	console.log(arg1);
 };
+document.getElementById('gameHolder').addEventListener('gameEnd', e => { 
+	genericOptions.body = JSON.stringify({
+		score: score
+	})
+	genericPost(window.location, genericOptions).then( result => {
+
+	})
+}, false);
